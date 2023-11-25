@@ -3,14 +3,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Chart, registerables } from 'chart.js';
+import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 import { Statistical } from 'src/app/common/Statistical';
 import { User } from 'src/app/common/User';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { StatisticalService } from 'src/app/services/statistical.service';
 
-// import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-statistical',
@@ -245,7 +244,7 @@ export class StatisticalComponent implements OnInit {
           hoverOffset: 4
         }]
       },
-    });
+    } as ChartConfiguration);
   }
 
   finish() {
