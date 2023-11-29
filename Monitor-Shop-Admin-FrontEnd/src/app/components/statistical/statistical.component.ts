@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 import { Statistical } from 'src/app/common/Statistical';
+import { ProductRating } from 'src/app/common/ProductRating';
 import { User } from 'src/app/common/User';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { StatisticalService } from 'src/app/services/statistical.service';
@@ -25,10 +26,16 @@ export class StatisticalComponent implements OnInit {
   columnsDate: string[] = ['index', 'date', 'count', 'amount'];
 
   statisticalMonths!: Statistical[];
+  productRatings!: ProductRating[];
   statisticalMonthsTable!: Statistical[];
+  productRatingTable!: ProductRating[];
   listDataMonth!: MatTableDataSource<Statistical>;
+  productDataTable!: MatTableDataSource<ProductRating>;
+  columnsRating: string[] = ['index', 'productName', 'amount', 'totalPrice']
+  lengthRating!: number;
   lengthMonth!: number;
   columnsMonth: string[] = ['index', 'date', 'count', 'amount'];
+  
 
   statisticalYearsTable!: Statistical[];
   listDataYear!: MatTableDataSource<Statistical>;
@@ -42,6 +49,8 @@ export class StatisticalComponent implements OnInit {
   @ViewChild('MatPaginatorDate') paginatorDate!: MatPaginator;
   @ViewChild('sortYear') sortYear!: MatSort;
   @ViewChild('MatPaginatorYear') paginatorYear!: MatPaginator;
+  @ViewChild('sortRating') sortRating!: MatSort;
+  @ViewChild('MatPaginatorRating') paginatorRating!: MatPaginator;
 
 
   labelsDate: any[] = [];
@@ -68,6 +77,7 @@ export class StatisticalComponent implements OnInit {
     this.getStatisticalAllDate();
     this.getStatisticalMonth();
     this.getStatisticalYear();
+    this.getStatisticalProductRating();
   }
 
   checkLogin() {
@@ -148,6 +158,25 @@ export class StatisticalComponent implements OnInit {
       this.lengthMonth = this.statisticalMonthsTable.length;
       this.listDataMonth.sort = this.sortMonth;
       this.listDataMonth.paginator = this.paginatorMonth;
+    }, error => {
+      this.toastr.error('Lỗi! ' + error.status, 'Hệ thống');
+    })
+  }
+
+  getStatisticalProductRating() {
+    this.statisticalService.getProductRanting().subscribe(data => {
+      this.productRatings = data as ProductRating[];
+
+      this.productRatingTable = this.productRatings;  
+      this.productDataTable = new MatTableDataSource(this.productRatingTable);
+      this.lengthRating = this.productRatings.length;
+      this.productDataTable.sort = this.sortRating;
+      this.productDataTable.paginator = this.paginatorRating;
+      
+      this.productRatings.forEach(item => {
+        this.dataMonth.push(item.amount),
+        this.labelsMonth.push(item.productName);
+      })
     }, error => {
       this.toastr.error('Lỗi! ' + error.status, 'Hệ thống');
     })

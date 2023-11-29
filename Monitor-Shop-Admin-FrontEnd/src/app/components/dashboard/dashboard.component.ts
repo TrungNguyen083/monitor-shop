@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
 
   labels: string[] = [];
   data: number[] = [];
-  year: number = 2021;
   years!: number[];
+  year: number = 2023;
   myChartBar !: Chart;
   myChartDoughnut !: Chart;
 
@@ -40,9 +40,9 @@ export class DashboardComponent implements OnInit {
     this.checkLogin();
     this.getAllUser();
     this.getOrderWait();
+    this.getYears();
     Chart.register(...registerables);
     this.getStatisticalYear();
-    this.getYears();
   }
 
   checkLogin() {
@@ -95,9 +95,6 @@ export class DashboardComponent implements OnInit {
         datasets: [{
           // label: '# of Votes',
           data: this.data,
-          // borderColor: 'rgb(75, 192, 192)',
-          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
-          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

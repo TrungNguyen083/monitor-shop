@@ -32,4 +32,8 @@ export class StatisticalService {
   getYears() {
     return this.httpClient.get(this.url+'/year');
   }
+
+  getProductRanting() {
+    return this.httpClient.get(this.url+'/product-rating');
+  }
 }
