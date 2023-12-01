@@ -22,15 +22,15 @@ import com.mshop.mailservice.SendMailService;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/orders")
-public class OrderRestApi {
+public class OrderController {
 	@Autowired
 	OrderRepository repo;
 	
 	@Autowired
-	OrderDetailRepository Orepo;
+	OrderDetailRepository oderRepo;
 	
 	@Autowired
-	UserRepository Urepo;
+	UserRepository userRepo;
 	
 	@Autowired
 	SendMailService sendmail;
@@ -55,7 +55,7 @@ public class OrderRestApi {
 	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<List<Order>> getAllByUser(@PathVariable("id") Long id) {
-		if(!Urepo.existsById(id)) {
+		if(!userRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(repo.findAllOrderByUserId(id));
@@ -64,7 +64,7 @@ public class OrderRestApi {
 	
 	@GetMapping("/user/wait/{id}")
 	public ResponseEntity<List<Order>> getAllWaitByUser(@PathVariable("id") Long id) {
-		if(!Urepo.existsById(id)) {
+		if(!userRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(repo.findAllOrderWaitByUserId(id));
@@ -72,7 +72,7 @@ public class OrderRestApi {
 	
 	@GetMapping("/user/confirmed/{id}")
 	public ResponseEntity<List<Order>> getAllConfirmedByUser(@PathVariable("id") Long id) {
-		if(!Urepo.existsById(id)) {
+		if(!userRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(repo.findAllOrderConfirmedByUserId(id));
@@ -80,7 +80,7 @@ public class OrderRestApi {
 	
 	@GetMapping("/user/paid/{id}")
 	public ResponseEntity<List<Order>> getAllPaidByUser(@PathVariable("id") Long id) {
-		if(!Urepo.existsById(id)) {
+		if(!userRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(repo.findAllOrderPaidByUserId(id));
@@ -88,7 +88,7 @@ public class OrderRestApi {
 	
 	@GetMapping("/user/cancel/{id}")
 	public ResponseEntity<List<Order>> getAllCancelByUser(@PathVariable("id") Long id) {
-		if(!Urepo.existsById(id)) {
+		if(!userRepo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(repo.findAllOrderCancelByUserId(id));
@@ -99,7 +99,7 @@ public class OrderRestApi {
 		if(repo.existsById(order.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		if(!Urepo.existsById(order.getUser().getUserId())) {
+		if(!userRepo.existsById(order.getUser().getUserId())) {
 			return ResponseEntity.notFound().build();
 		}
 		Order o = repo.save(order);
@@ -111,7 +111,7 @@ public class OrderRestApi {
 		if(!repo.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		if(id != order.getId()) {
+		if(!order.getId().equals(id)) {
 			return ResponseEntity.badRequest().build();
 		}
 		Order o = repo.save(order);

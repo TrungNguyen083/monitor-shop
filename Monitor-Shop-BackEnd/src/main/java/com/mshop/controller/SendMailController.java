@@ -20,16 +20,16 @@ import com.mshop.mailservice.SendMailService;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/send-mail")
-public class sendMailRestApi {
+public class SendMailController {
 
 	@Autowired
-	OrderDetailRepository ODrepo;
+	OrderDetailRepository orderDetailRepo;
 
 	@Autowired
 	SendMailService sendMail;
 	
 	@Autowired
-	UserRepository Urepo;
+	UserRepository userRepo;
 
 	@PostMapping("/order")
 	public ResponseEntity<Void> sendMail(@RequestBody Order o) {
@@ -48,22 +48,22 @@ public class sendMailRestApi {
 
 	@PostMapping("/otp")
 	public ResponseEntity<Integer> sendOpt(@RequestBody String email) {
-		int random_otp = (int) Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
-		if(Urepo.existsByEmail(email)) {
+		int randomOtp = (int) Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
+		if(userRepo.existsByEmail(email)) {
 			return ResponseEntity.notFound().build();
 		}
-		sendMailOtp(email, random_otp, "Xác nhận tài khoản!");
-		return ResponseEntity.ok(random_otp);
+		sendMailOtp(email, randomOtp, "Xác nhận tài khoản!");
+		return ResponseEntity.ok(randomOtp);
 	}
 	
 	@PostMapping("/otp-forgot-password")
 	public ResponseEntity<Integer> sendOpt1(@RequestBody String email) {
-		int random_otp = (int) Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
-		if(!Urepo.existsByEmail(email)) {
+		int randomOtp = (int) Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
+		if(!userRepo.existsByEmail(email)) {
 			return ResponseEntity.notFound().build();
 		}
-		sendMailOtp(email, random_otp, "Quên mật khẩu?");
-		return ResponseEntity.ok(random_otp);
+		sendMailOtp(email, randomOtp, "Quên mật khẩu?");
+		return ResponseEntity.ok(randomOtp);
 	}
 
 	// format currency
@@ -74,16 +74,16 @@ public class sendMailRestApi {
 	}
 
 	// sendmail
-	public void sendMailOtp(String email, int Otp, String title) {
+	public void sendMailOtp(String email, int otp, String title) {
 		String body = "<div>\r\n"
-				+ "        <h3>Mã OTP của bạn là: <span style=\"color:red; font-weight: bold;\">" + Otp
+				+ "        <h3>Mã OTP của bạn là: <span style=\"color:red; font-weight: bold;\">" + otp
 				+ "</span></h3>\r\n" + "    </div>";
 		sendMail.queue(email, title, body);
 	}
 
 	// sendmail
 	public void sendMailOrder(Order order, String subtitle, String title) {
-		List<OrderDetail> list = ODrepo.findOrderDetailByOrderId(order.getId());
+		List<OrderDetail> list = orderDetailRepo.findOrderDetailByOrderId(order.getId());
 
 		StringBuilder content = new StringBuilder();
 

@@ -19,7 +19,7 @@ import com.mshop.repositories.RateRepository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/rates")
-public class RateRestApi {
+public class RateController {
 	@Autowired
 	RateRepository repo;
 	

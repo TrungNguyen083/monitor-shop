@@ -82,7 +82,7 @@ export class CartsComponent implements OnInit {
         this.cart.amount = this.amount;
         this.cartService.updateCart(this.customerId, this.cart)
       }, error => {
-        this.toastr.error('Lỗi truy xuất dữ liệu!', 'Hệ thống');
+        this.toastr.error('Lỗi truy xuất dữ liệu!' + error.status, 'Hệ thống');
       })
     }, error => {
       this.toastr.error('Lỗi truy xuất dữ liệu!' + error.status, 'Hệ thống');

@@ -20,7 +20,7 @@ import com.mshop.repositories.OrderRepository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/order-detail")
-public class OrderDetailRestApi {
+public class OrderDetailController {
 	@Autowired
 	OrderDetailRepository repo;
 	

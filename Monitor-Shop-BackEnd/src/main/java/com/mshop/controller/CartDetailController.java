@@ -24,7 +24,7 @@ import com.mshop.repositories.ProductResository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/cart-detail")
-public class CartDetailRestApi {
+public class CartDetailController {
 	@Autowired
 	CartDetailRepository repo;
 

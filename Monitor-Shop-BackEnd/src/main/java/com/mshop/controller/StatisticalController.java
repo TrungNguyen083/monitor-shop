@@ -19,8 +19,8 @@ import com.mshop.repositories.OrderRepository;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/statistical/api")
-public class StatisticalRestApi {
+@RequestMapping("/api/statistical")
+public class StatisticalController {
 	
 	@Autowired
 	OrderRepository repo;	
@@ -82,7 +82,6 @@ public class StatisticalRestApi {
 		}
 		return ResponseEntity.ok(listSta);
 	}
-	
 
 	@GetMapping("/year")
 	public ResponseEntity<List<Integer>> getYears() {

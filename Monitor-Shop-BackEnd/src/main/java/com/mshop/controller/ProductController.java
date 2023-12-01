@@ -21,7 +21,7 @@ import com.mshop.repositories.ProductResository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/products")
-public class ProductRestApi {
+public class ProductController {
 	@Autowired
 	ProductResository repo;
 	

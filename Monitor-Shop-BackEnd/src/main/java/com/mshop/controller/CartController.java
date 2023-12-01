@@ -18,7 +18,7 @@ import com.mshop.repositories.UserRepository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/cart")
-public class CartRestApi {
+public class CartController {
 	@Autowired
 	CartRepository repo;
 	

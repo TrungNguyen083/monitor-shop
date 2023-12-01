@@ -21,23 +21,7 @@ export class OrdersService {
   getOrder(id:number) {
     return this.httpClient.get(this.urlO+'/'+id);
   }
-
-  getByOrder(id:number) {
-    return this.httpClient.get(this.urlOD+'/order/'+id);
-  }
-
-  getOD(id:number) {
-    return this.httpClient.get(this.urlOD+'/'+id);
-  }
-
-  putOD(id:number, orderDetail: OrderDetail) {
-    return this.httpClient.put(this.urlOD+'/'+id, orderDetail);
-  }
-
-  saveOrderDetail(orderDetail: OrderDetail) {
-    return this.httpClient.post(this.urlOD, orderDetail);
-  }
-
+  
   update(id:number, order:Order) {
     return this.httpClient.put(this.urlO+'/'+id, order);
   }
@@ -61,4 +45,21 @@ export class OrdersService {
   getCancel(id:number) {
     return this.httpClient.get(this.urlO+'/user/cancel/'+id);
   }
+
+  getByOrder(id:number) {
+    return this.httpClient.get(this.urlOD+'/order/'+id);
+  }
+
+  getOD(id:number) {
+    return this.httpClient.get(this.urlOD+'/'+id);
+  }
+
+  putOD(id:number, orderDetail: OrderDetail) {
+    return this.httpClient.put(this.urlOD+'/'+id, orderDetail);
+  }
+
+  saveOrderDetail(orderDetail: OrderDetail) {
+    return this.httpClient.post(this.urlOD, orderDetail);
+  }
+
 }

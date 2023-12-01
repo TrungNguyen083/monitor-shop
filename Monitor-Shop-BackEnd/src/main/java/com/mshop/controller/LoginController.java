@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import com.mshop.repositories.UserRepository;
 public class LoginController {
 	@Autowired
 	UserRepository repo;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping("admin/login")
 	public ResponseEntity<User> LoginAdmin(@RequestBody Login login) {
@@ -49,7 +52,7 @@ public class LoginController {
 			if(login.getUsername().equals(user.getEmail())) {
 				checkUsername = true;
 				u = repo.findByEmail(login.getUsername());
-				if(u.getPassword().equals(login.getPassword())) {
+				if(passwordEncoder.matches(login.getPassword(), u.getPassword())) {
 					return ResponseEntity.ok(u);
 				}
 			}

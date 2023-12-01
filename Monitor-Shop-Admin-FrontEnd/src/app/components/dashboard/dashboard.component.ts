@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   labels: string[] = [];
   data: number[] = [];
   years!: number[];
-  year: number = 2023;
+  year!: number;
   myChartBar !: Chart;
   myChartDoughnut !: Chart;
 
@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
     this.getOrderWait();
     this.getYears();
     Chart.register(...registerables);
-    this.getStatisticalYear();
   }
 
   checkLogin() {
@@ -75,6 +74,8 @@ export class DashboardComponent implements OnInit {
   getYears() {
     this.statisticalService.getYears().subscribe(data => {
       this.years = data as number[];
+      this.year = this.years[0]
+      this.getStatisticalYear();
     }, error => {
       this.toastr.error('Lỗi! ' + error.status, 'Hệ thống');
     })
@@ -84,7 +85,7 @@ export class DashboardComponent implements OnInit {
     this.labels = [];
     this.data = [];
     this.myChartBar.destroy();
-    this.ngOnInit();
+    this.getStatisticalYear();
   }
 
   loadChartBar() {
@@ -93,7 +94,6 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.labels,
         datasets: [{
-          // label: '# of Votes',
           data: this.data,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',

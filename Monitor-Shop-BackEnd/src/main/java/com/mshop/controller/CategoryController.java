@@ -19,7 +19,7 @@ import com.mshop.repositories.CategoryRepository;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/categories")
-public class CategoryRestApi {
+public class CategoryController {
 	@Autowired
 	CategoryRepository repo;
 	

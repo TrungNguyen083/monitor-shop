@@ -2,6 +2,7 @@ package com.mshop.controller;
 
 import java.util.List;
 
+import com.mshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,77 +15,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mshop.models.Cart;
 import com.mshop.models.User;
-import com.mshop.repositories.CartRepository;
-import com.mshop.repositories.UserRepository;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/users")
-public class UserRestApi {
-	@Autowired
-	UserRepository repo;
-	
-	@Autowired
-	CartRepository Crepo;
+public class UserController {
 
-//	@Autowired
-//	PasswordEncoder passwordEncoder;
+	@Autowired
+	UserService userService;
 	
 	@GetMapping
 	public ResponseEntity<List<User>> getAll() {
-		return ResponseEntity.ok(repo.findByStatusTrueAndRoleFalse());
+		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<User> getOne(@PathVariable("id") Long id) {
-		if(!repo.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(repo.findById(id).get());
+	public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+		return ResponseEntity.ok(userService.getUserById(id));
 	}
 	
 	@GetMapping("email/{email}")
 	public ResponseEntity<User> getOneByEmail(@PathVariable("email") String email) {
-		return ResponseEntity.ok(repo.findByEmail(email));
+		return ResponseEntity.ok(userService.getUserByEmail(email));
 	}
 	
 	@PostMapping
 	public ResponseEntity<User> post(@RequestBody User user) {
-		if(repo.existsByEmail(user.getEmail())) {
-			return ResponseEntity.notFound().build();
+		if(userService.checkEmail(user.getEmail())) {
+			return ResponseEntity.ok(userService.createUser(user));
 		}
-		if(repo.existsById(user.getUserId())) {
-			return ResponseEntity.badRequest().build();
-		}
-		//user.setPassword(passwordEncoder.encode(user.getPassword()));
-		User u =  repo.save(user);
-
-		Cart c = new Cart(0L, 0.0, user.getAddress(), user.getPhone(), true, u);
-		Crepo.save(c);
-		return ResponseEntity.ok(u);
+		return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("{id}")
 	public ResponseEntity<User> put(@PathVariable("id") Long id, @RequestBody User user) {
-		if(!repo.existsById(id)) {
-			return ResponseEntity.notFound().build();
+		if(userService.checkEmail(user.getEmail())) {
+			return ResponseEntity.ok(userService.updateUser(id, user));
 		}
-		if(!id.equals(user.getUserId())) {
-			return ResponseEntity.badRequest().build();
-		}
-		return ResponseEntity.ok(repo.save(user));
+		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		if(!repo.existsById(id)) {
+		try {
+			userService.deleteUser(id);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
-		User u = repo.findById(id).get();
-		u.setStatus(false);
-		repo.save(u);
-		return ResponseEntity.ok().build();
 	}
 }
