@@ -37,7 +37,7 @@
                     <li><a class="dropdown-item" [routerLink]="['/customer']" *ngIf="user!=null">Thông tin cá nhân</a></li>
                     <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;" *ngIf="user!=null">Đăng xuất</a></li>
                     <li><a class="dropdown-item" [routerLink]="['/login']" *ngIf="user==null">Đăng nhập</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['/register']" *ngIf="user==null">Đăng kí</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['/register']" *ngIf="user==null">Đăng ký</a></li>
                     <li><a class="dropdown-item"  [routerLink]="['/forgot-password']" *ngIf="user==null">Quên mật khẩu?</a></li>
                 </ul>
             </div>
