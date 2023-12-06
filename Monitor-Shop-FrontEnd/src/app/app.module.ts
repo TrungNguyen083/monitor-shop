@@ -35,7 +35,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { PaymentCancleComponent } from "./components/payment-cancle/payment-cancle.component"
+import { PaymentCancleComponent } from "./components/payment-cancel/payment-cancel.component"
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home-page' },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'payment-cancel', component: PaymentCancleComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent},
   { path: '**', component: NotfoundComponent },
 ]
 
@@ -71,6 +73,7 @@ const routes: Routes = [
     ForgotPasswordComponent,
     PaymentComponent,
     PaymentCancleComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,

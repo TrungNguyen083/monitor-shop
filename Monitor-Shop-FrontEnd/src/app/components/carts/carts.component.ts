@@ -181,7 +181,23 @@ export class CartsComponent implements OnInit {
           cancelButtonText: 'Hủy',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.order = new Order(0, this.amount, this.postForm.value.address, this.postForm.value.phone, new Date(), 1, new Customer(this.customerId));
+            this.handleCheckout();
+          } else if (result.isDenied) {
+            this.sharedDataService.setAmount(this.amount);
+            this.sharedDataService.setAddress(this.postForm.value.address)
+            this.sharedDataService.setPhone(this.postForm.value.phone)
+            console.log("Address:", this.postForm.value.address)
+            console.log("Phone:", this.postForm.value.phone)
+            this.router.navigate(['/payment']);
+          }
+        })
+      }
+    })
+  }
+
+
+  handleCheckout() {
+    this.order = new Order(0, this.amount, this.postForm.value.address, this.postForm.value.phone, new Date(), 1, new Customer(this.customerId));
             this.orderService.checkOut(this.order).subscribe(data => {
               this.order = data as Order;
               //chuyen vao order detail
@@ -197,16 +213,8 @@ export class CartsComponent implements OnInit {
             this.removeAllItem();
             Swal.fire(
               'Thành công!',
-              'Chúc mừng bạn đã đặt hàng thành công.',
+              'Bạn đã đặt hàng thành công.',
               'success'
             )
-          } else if (result.isDenied) {
-            this.sharedDataService.setAmount(this.amount);
-            this.router.navigate(['/payment']);
-          }
-        })
-      }
-    })
   }
-
 }

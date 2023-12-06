@@ -1,0 +1,39 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: aliceblue;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.train img {
+    height: auto;
+}
+
+
+.message {
+    padding-top: 30px;
+    font-size: 18px;
+    color: black;
+}
+
+.cancel-message {
+    padding-top: 10px;
+    padding-bottom: 30px;
+    font-size: 16px;
+    color: red;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
