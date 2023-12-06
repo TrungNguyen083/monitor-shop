@@ -18,6 +18,6 @@ export class PaymentService {
     }
 
     success(paymentId: string, payerId: string) {
-        return this.httpClient.get(`${this.url}/success?paymentId=${paymentId}&payerId=${payerId}`);
+        return this.httpClient.get(`${this.url}/success?paymentId=${paymentId}&payerId=${payerId}`, { responseType: 'text'});
     }
 }

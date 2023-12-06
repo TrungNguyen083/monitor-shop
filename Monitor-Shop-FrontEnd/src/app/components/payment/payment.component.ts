@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Payment } from 'src/app/common/Payment';
@@ -16,9 +16,7 @@ export class PaymentComponent implements OnInit {
     payment!: Payment;
     amount!: Number;
     formattedAmount!: any
-
-    @Output()
-    saveFinish: EventEmitter<any> = new EventEmitter<any>();
+    address!: any
 
     constructor(
         private paymentService: PaymentService,
@@ -30,6 +28,11 @@ export class PaymentComponent implements OnInit {
             const exchangeRate = 23000;
             this.amount = Math.round((amount / exchangeRate) * 100) / 100;
         });
+        this.sharedDataService.address$.subscribe(address => {
+            this.address = address;
+            console.log(this.address)
+        })
+        
         this.postForm = new FormGroup({
             'price': new FormControl(this.amount),
             'currency': new FormControl(null, Validators.required),
@@ -48,6 +51,7 @@ export class PaymentComponent implements OnInit {
             this.payment = this.postForm.value;
 
             this.paymentService.payment(this.payment).subscribe(data => {
+                this.sharedDataService.setAddress(this.address);
                 window.location.href = data.toString();
 
             }, error => {
