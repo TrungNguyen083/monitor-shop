@@ -11,6 +11,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { SendmailService } from 'src/app/services/sendmail.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,10 +34,17 @@ export class CartsComponent implements OnInit {
   amountReal!: number;
   postForm: FormGroup;
 
-  user!:Customer;
+  user!: Customer;
 
-  constructor(private cartService: CartService, private toastr: ToastrService, private orderService: OrdersService, 
-    private localStorageService: LocalStorageService, private router: Router, private sendMailService: SendmailService) {
+  constructor(
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private orderService: OrdersService,
+    private localStorageService: LocalStorageService,
+    private router: Router,
+    private sendMailService: SendmailService,
+    private sharedDataService: SharedDataService,
+  ) {
     this.postForm = new FormGroup({
       'address': new FormControl(null, [Validators.required, Validators.minLength(3)]),
       'phone': new FormControl(null, [Validators.required])
@@ -52,18 +60,18 @@ export class CartsComponent implements OnInit {
 
   checkLogin() {
     this.user = this.localStorageService.getUser();
-    if(this.user != null) {
+    if (this.user != null) {
       this.customerId = this.user.userId;
       this.amount = 0;
       this.discount = 0;
-      this.amountReal = 0;    
+      this.amountReal = 0;
       this.getAllItem();
     } else {
       this.router.navigate(['/login']);
     }
   }
 
-  getAllItem() {    
+  getAllItem() {
     this.cartService.getCart(this.customerId).subscribe(data => {
       this.cart = data as Cart;
       this.postForm = new FormGroup({
@@ -161,29 +169,42 @@ export class CartsComponent implements OnInit {
       confirmButtonText: 'Đặt'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.order = new Order(0, this.amount, this.postForm.value.address, this.postForm.value.phone, new Date(), 1, new Customer(this.customerId));
-        this.orderService.checkOut(this.order).subscribe(data => {
-          this.order = data as Order;
-          //chuyen vao order detail
-          this.cartDetails.forEach(item => {
-            this.orderDetail = new OrderDetail(0,item.quantity, item.price, item.product, this.order);
-            this.orderService.saveOrderDetail(this.orderDetail).subscribe(data=>{
-              console.log('done')
+        Swal.fire({
+          title: 'Bạn muốn chọn hình thức thanh toán nào?',
+          icon: 'question',
+          showCancelButton: true,
+          showDenyButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Thanh toán khi nhận hàng',
+          denyButtonText: `Thanh toán online`,
+          cancelButtonText: 'Hủy',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.order = new Order(0, this.amount, this.postForm.value.address, this.postForm.value.phone, new Date(), 1, new Customer(this.customerId));
+            this.orderService.checkOut(this.order).subscribe(data => {
+              this.order = data as Order;
+              //chuyen vao order detail
+              this.cartDetails.forEach(item => {
+                this.orderDetail = new OrderDetail(0, item.quantity, item.price, item.product, this.order);
+                this.orderService.saveOrderDetail(this.orderDetail).subscribe(data => {
+                  console.log('done')
+                })
+              })
+            }, error => {
+              this.toastr.error('Lỗi! ' + error.status, 'Hệ thống');
             })
-          })
-          //gui
-          // this.sendMailService.sendMailOrder(this.order).subscribe(data=>{       
-          //   console.log('mail');                 
-          // })
-        }, error=>{
-          this.toastr.error('Lỗi! ' + error.status, 'Hệ thống');
+            this.removeAllItem();
+            Swal.fire(
+              'Thành công!',
+              'Chúc mừng bạn đã đặt hàng thành công.',
+              'success'
+            )
+          } else if (result.isDenied) {
+            this.sharedDataService.setAmount(this.amount);
+            this.router.navigate(['/payment']);
+          }
         })
-        this.removeAllItem();
-        Swal.fire(
-          'Thành công!',
-          'Chúc mừng bạn đã đặt hàng thành công.',
-          'success'
-        )
       }
     })
   }

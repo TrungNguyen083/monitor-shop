@@ -1,0 +1,22 @@
+
+<body>
+    <div class="error-container">
+        <div class="train">
+            <img src="../../../assets/train.png" alt="Cartoon train">
+        </div>
+        <p class="message">Payment Gateway</p>
+        <p class="cancel-message">YOUR PAYMENT REQUEST HAS BEEN CANCELED</p>
+        <form class="d-flex">
+            <button [routerLink]="['/carts']" class="back-button" type="submit">
+                BACK TO CART
+            </button>
+        </form>  
+    </div>
+</body>
+
+<form class="d-flex">
+    <button [routerLink]="['/carts']" class="btn btn-outline-light" type="submit">
+        <i class="bi-cart-fill me-1"></i>
+        Cart
+    </button>
+</form>  

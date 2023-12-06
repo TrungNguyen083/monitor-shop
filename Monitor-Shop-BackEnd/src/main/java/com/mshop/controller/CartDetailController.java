@@ -62,7 +62,7 @@ public class CartDetailController {
 			if(p.getProductId() == product.getProductId()) {
 				check = true;
 			}
-		};
+		}
 		if(!check) {
 			return ResponseEntity.notFound().build();			
 		}

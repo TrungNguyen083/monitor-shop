@@ -1,0 +1,43 @@
+
+<section class="py-5">
+    <div class="container my-5"
+        style="border: 1px solid rgb(235, 235, 235); box-shadow: 0 0 6px rgb(226, 226, 226);">
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <form [formGroup]="postForm">
+                        <div class="col-50">
+                            <h3 style="padding-top: 40px;">Online Payment</h3>
+                            <label>Accepted Cards</label>
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy; padding-right: 8px;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue; padding-right: 8px"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red; padding-right: 8px"></i>
+                                <i class="fa fa-cc-discover" style="color:orange; padding-right: 8px"></i>
+                            </div>
+                            <label for="price">Total</label>
+                            <input type="text" [ngClass]="{'is-invalid':postForm.get('price')?.touched && postForm.get('price')?.invalid}"
+                            class="form-control" formControlName="price" id="price" name="price" value="10">
+                            <label for="currency">Currency</label>
+                            <input type="text" [ngClass]="{'is-invalid':postForm.get('currency')?.touched && postForm.get('currency')?.invalid}"
+                            class="form-control" formControlName="currency" id="currency" name="currency" placeholder="Enter Currency">
+                            <label for="method">Payment Method</label>
+                            <input type="text" [ngClass]="{'is-invalid':postForm.get('method')?.touched && postForm.get('method')?.invalid}"
+                            class="form-control" formControlName="method" id="method" name="method" placeholder="Payment Method">
+                            <label for="intent">Intent</label>
+                            <input type="text" [ngClass]="{'is-invalid':postForm.get('intent')?.touched && postForm.get('intent')?.invalid}"
+                            class="form-control" formControlName="intent" id="intent" name="intent" value="sale">
+                            <label for="description">Payment Description</label>
+                            <input type="text" [ngClass]="{'is-invalid':postForm.get('description')?.touched && postForm.get('description')?.invalid}"
+                            class="form-control" formControlName="description" id="description" name="description" placeholder="Payment Description">
+        
+                        </div>
+        
+                        <input type="submit" value="Continue to checkout" class="form-group btn" [disabled]="postForm.invalid" (click)="createPayment()">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

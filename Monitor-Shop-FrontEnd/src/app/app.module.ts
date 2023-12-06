@@ -12,12 +12,12 @@ import { OrderModule } from 'ngx-order-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatListModule} from '@angular/material/list';
-import {MatSelectModule} from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -34,6 +34,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentCancleComponent } from "./components/payment-cancle/payment-cancle.component"
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home-page' },
@@ -45,6 +47,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'payment', component: PaymentComponent },
+  { path: 'payment-cancel', component: PaymentCancleComponent },
   { path: '**', component: NotfoundComponent },
 ]
 
@@ -65,6 +69,8 @@ const routes: Routes = [
     NotfoundComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    PaymentComponent,
+    PaymentCancleComponent,
   ],
   imports: [
     BrowserModule,
