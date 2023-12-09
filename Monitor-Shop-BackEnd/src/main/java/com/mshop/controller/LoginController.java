@@ -32,7 +32,7 @@ public class LoginController {
 			if(login.getUsername().equals(user.getEmail())) {
 				checkUsername = true;
 				u = repo.findByEmail(login.getUsername());
-				if(u.getPassword().equals(login.getPassword())) {
+				if(passwordEncoder.matches(login.getPassword(), u.getPassword())) {
 					return ResponseEntity.ok(u);
 				}
 			}

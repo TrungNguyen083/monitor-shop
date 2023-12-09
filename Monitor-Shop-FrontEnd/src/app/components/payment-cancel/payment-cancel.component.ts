@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Payment } from 'src/app/common/Payment';
-import { Cart } from 'src/app/common/cart';
+import { Cart } from 'src/app/common/Cart';
 
 @Component({
     selector: 'app-payment-cancel',

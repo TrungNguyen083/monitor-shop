@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Cart } from 'src/app/common/cart';
 import { CartDetail } from 'src/app/common/CartDetail';
 import { Customer } from 'src/app/common/Customer';
 import { CartService } from 'src/app/services/cart.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Category } from '../../common/Category';
+import { Cart } from 'src/app/common/Cart';
 
 @Component({
   selector: 'app-header',

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Cart } from 'src/app/common/cart';
 import { CartDetail } from 'src/app/common/CartDetail';
 import { Customer } from 'src/app/common/Customer';
 import { Rate } from 'src/app/common/Rate';
@@ -10,6 +9,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ProductService } from 'src/app/services/product.service';
 import { RateService } from 'src/app/services/rate.service';
 import { Product } from '../../common/Product';
+import { Cart } from 'src/app/common/Cart';
 
 @Component({
   selector: 'app-home-page',

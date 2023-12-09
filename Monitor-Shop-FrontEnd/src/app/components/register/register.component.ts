@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
       if (this.postForm.value.otp == JSON.parse(this.data)) {
         this.user = this.postForm.value;
         this.user.image = this.url;
-        this.userService.signIn(this.user).subscribe(data => {
+        this.userService.signUp(this.user).subscribe(data => {
           Swal.fire({
             icon: 'success',
             title: 'Đăng kí thành công!',
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
           window.localStorage.removeItem("otp");
           window.location.href = '/';
         }, error => {
-          this.toastr.error('Đăng kí thất bại ! Hãy thử lại', 'Hệ thống');
+          this.toastr.error('Đăng ký thất bại ! Hãy thử lại', 'Hệ thống');
         })
       } else {
         this.toastr.error('Mã OTP không đúng, hãy kiểm tra lại !', 'Hệ thống');

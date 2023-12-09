@@ -8,8 +8,8 @@ import { Login } from '../common/Login';
 })
 export class CustomerService {
 
-  url = 'http://monitorshop.onrender.com/api/users';
-  urlAuthentication = 'http://monitorshop.onrender.com/api';
+  url = 'http://localhost:8989/api/users';
+  urlAuthentication = 'http://localhost:8989/api';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -33,7 +33,7 @@ export class CustomerService {
     return this.httpClient.post(this.urlAuthentication+'/user/login', login);
   }
 
-  signIn(user: Customer) {
+  signUp(user: Customer) {
     return this.httpClient.post(this.url, user);
   }
 }

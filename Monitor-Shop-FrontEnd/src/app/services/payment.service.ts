@@ -6,7 +6,7 @@ import { Payment } from '../common/Payment'
     providedIn: 'root'
 })
 export class PaymentService {
-    url = 'http://monitorshop.onrender.com/api/payment';
+    url = 'http://localhost:8989/api/payment';
     constructor(private httpClient: HttpClient) { }
 
     payment(payment: Payment) {

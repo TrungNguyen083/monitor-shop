@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Cart } from '../common/cart';
+import { Cart } from '../common/Cart';
 import { CartDetail } from '../common/CartDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  urlC = 'http://monitorshop.onrender.com/api/cart';
+  urlC = 'http://localhost:8989/api/cart';
 
-  urlD = 'http://monitorshop.onrender.com/api/cart-detail';
+  urlD = 'http://localhost:8989/api/cart-detail';
 
   totalCartItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   $data: Observable<number> = this.totalCartItems.asObservable();

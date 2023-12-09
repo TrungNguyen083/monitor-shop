@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,10 +36,11 @@ public class UserService {
         return userRepo.findByEmail(email);
     }
 
+    @Transactional
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepo.save(user);
-        Cart c = new Cart(0L, 0.0, user.getAddress(), user.getPhone(), true, user);
+        Cart c = new Cart(0L, 0.0, user.getAddress(), user.getPhone(), true, savedUser);
         cartRepo.save(c);
         return savedUser;
     }
