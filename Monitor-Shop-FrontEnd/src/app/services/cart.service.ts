@@ -3,16 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../common/cart';
 import { CartDetail } from '../common/CartDetail';
-import { Order } from '../common/Order';
-import { OrderDetail } from '../common/OrderDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  urlC = 'http://localhost:8989/api/cart';
+  urlC = 'http://monitorshop.onrender.com/api/cart';
 
-  urlD = 'http://localhost:8989/api/cart-detail';
+  urlD = 'http://monitorshop.onrender.com/api/cart-detail';
 
   totalCartItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   $data: Observable<number> = this.totalCartItems.asObservable();

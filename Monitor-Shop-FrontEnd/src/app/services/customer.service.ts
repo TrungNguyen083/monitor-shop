@@ -8,8 +8,8 @@ import { Login } from '../common/Login';
 })
 export class CustomerService {
 
-  url = 'http://localhost:8989/api/users';
-  urlAuthentication = 'http://localhost:8989/api';
+  url = 'http://monitorshop.onrender.com/api/users';
+  urlAuthentication = 'http://monitorshop.onrender.com/api';
 
   constructor(private httpClient: HttpClient) { }
 

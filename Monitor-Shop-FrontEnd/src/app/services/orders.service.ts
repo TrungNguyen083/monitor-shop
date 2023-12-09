@@ -8,9 +8,9 @@ import { OrderDetail } from '../common/OrderDetail';
 })
 export class OrdersService {
 
-  urlOD = 'http://localhost:8989/api/order-detail';
+  urlOD = 'http://monitorshop.onrender.com/api/order-detail';
 
-  urlO = 'http://localhost:8989/api/orders';
+  urlO = 'http://monitorshop.onrender.com/api/orders';
 
   constructor(private httpClient: HttpClient) { }
 
