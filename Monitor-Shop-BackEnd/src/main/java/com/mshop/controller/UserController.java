@@ -42,7 +42,7 @@ public class UserController {
 	
 	@PostMapping
 	public ResponseEntity<User> post(@RequestBody User user) {
-		if(userService.checkEmail(user.getEmail())) {
+		if(!userService.checkEmail(user.getEmail())) {
 			return ResponseEntity.ok(userService.createUser(user));
 		}
 		return ResponseEntity.notFound().build();

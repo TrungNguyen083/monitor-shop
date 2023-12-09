@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CartDetail } from 'src/app/common/CartDetail';
 import { Customer } from 'src/app/common/Customer';
 import { OrderDetail } from 'src/app/common/OrderDetail';
-import { Cart } from 'src/app/common/cart';
+import { Cart } from 'src/app/common/Cart';
 import { CartService } from 'src/app/services/cart.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { OrdersService } from 'src/app/services/orders.service';
