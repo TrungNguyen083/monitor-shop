@@ -7,7 +7,7 @@ import { Order } from '../common/Order';
 })
 export class SendmailService {
 
-  url = 'http://localhost:8989/api/send-mail'
+  url = 'http://monitorshop.onrender.com/api/send-mail'
 
   constructor(private httpClient: HttpClient) { }
 

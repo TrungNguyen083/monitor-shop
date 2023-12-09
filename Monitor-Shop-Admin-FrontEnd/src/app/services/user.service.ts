@@ -7,8 +7,8 @@ import { User } from '../common/User';
   providedIn: 'root'
 })
 export class UserService {
-  url = 'http://localhost:8989/api/users';
-  urlAuthentication = 'http://localhost:8989/api';
+  url = 'http://monitorshop.onrender.com/api/users';
+  urlAuthentication = 'http://monitorshop.onrender.com/api';
   constructor(private httpClient: HttpClient) { }
 
   getAll() {
