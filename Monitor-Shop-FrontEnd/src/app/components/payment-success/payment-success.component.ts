@@ -44,14 +44,13 @@ export class PaymentSuccessComponent implements OnInit {
         private orderService: OrdersService,
         private localStorageService: LocalStorageService,
     ) {
+        this.paymentId = this.route.snapshot.queryParamMap.get('paymentId');
+        this.payerId = this.route.snapshot.queryParamMap.get('PayerID');
+        this.success();
     }
 
     ngOnInit(): void {
         this.checkLogin();
-        console.log(this.user.address)
-        this.paymentId = this.route.snapshot.queryParamMap.get('paymentId');
-        this.payerId = this.route.snapshot.queryParamMap.get('PayerID');
-        this.success();
     }
 
     checkLogin() {
